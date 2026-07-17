@@ -3,6 +3,7 @@ import { initDragDrop } from './dragdrop.js';
 import { boardIsFull, checkWin } from './rules.js';
 import { loadProgress, saveProgress } from './state.js';
 import { shareText, fmtTime, copyToClipboard } from './share.js';
+import { sfx } from './sfx.js';
 
 const HELP_SEEN_KEY = 'fragmentsHelpSeen_v1';
 
@@ -48,10 +49,12 @@ function boardSignature() {
   ).join('|');
 }
 
-function onChange() {
+function onChange(kind) {
   if (game.solved) return;
   if (startedAt === null) startedAt = Date.now();
   rerender();
+  if (kind === 'place') sfx.place();
+  else if (kind === 'remove') sfx.remove();
   if (boardIsFull(game)) {
     if (checkWin(game)) return win();
     const sig = boardSignature();
@@ -60,6 +63,7 @@ function onChange() {
     void boardEl.offsetWidth; // restart the animation
     boardEl.classList.add('shake');
     toast('Not quite…');
+    sfx.wrong();
   }
   persist();
 }
@@ -70,6 +74,7 @@ function win() {
   finishedAt = Date.now();
   persist();
   rerender();
+  sfx.win();
   showDone();
 }
 
@@ -216,6 +221,7 @@ function useClue() {
   const frags = game.puzzle.theme.match(/../g);
   frags.forEach((_, i) => solveSlot(0, i, claimed));
   if (!clueUsed) { clueUsed = true; toast('Theme word revealed'); }
+  sfx.reveal();
   onChange();
 }
 
@@ -240,6 +246,7 @@ function useHintOnSlot(row, idx) {
   if (!solveSlot(row, idx)) return;
   hintsUsed++;
   exitHintPicking();
+  sfx.reveal();
   onChange();
 }
 
@@ -282,6 +289,16 @@ async function boot() {
   });
   document.getElementById('closeLevelsBtn').addEventListener('click', () =>
     levelsOverlay.classList.add('hidden'));
+
+  const muteBtn = document.getElementById('muteBtn');
+  muteBtn.textContent = sfx.isMuted() ? '🔇' : '🔊';
+  muteBtn.setAttribute('aria-pressed', String(sfx.isMuted()));
+  muteBtn.addEventListener('click', () => {
+    const m = sfx.toggleMuted();
+    muteBtn.textContent = m ? '🔇' : '🔊';
+    muteBtn.setAttribute('aria-pressed', String(m));
+    if (!m) sfx.place(); // audible confirmation that sound is back on
+  });
 
   document.getElementById('clueBtn').addEventListener('click', useClue);
   document.getElementById('hintBtn').addEventListener('click', () => {

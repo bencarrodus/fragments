@@ -343,14 +343,19 @@ function suggestDecoys(p, count) {
     for (const b of bigrams(w)) freq.set(b, (freq.get(b) || 0) + 1);
   }
 
-  // paranoid uniqueness implies strict uniqueness (strict ⊂ paranoid), so
-  // screening against the paranoid dictionary keeps the warning tier quiet too
+  // Adding fragments can only ADD solutions (the pool grows monotonically),
+  // so "paranoid solution count unchanged vs. the base puzzle" is exactly
+  // "this decoy creates no new alternate at all" — and since strict ⊂
+  // paranoid, that subsumes strict safety too. Comparing against the BASE
+  // count (not requiring absolute uniqueness) keeps the suggester working
+  // for puzzles that already carry words_alpha junk warnings.
   const paranoidDict = new Set(strictDict);
   for (const w of alpha) paranoidDict.add(w);
-  const uniqueWith = (dictSet, decoys, d) => {
-    const trial = { ...p, decoys: [...decoys, d] };
-    return enumerateSolutions(trial, dictSet, { limit: 2 }).length === 1;
-  };
+  const parCount = (decoys, limit) =>
+    enumerateSolutions({ ...p, decoys }, paranoidDict, { limit }).length;
+  const basePar = parCount(p.decoys, SOLUTION_LIMIT);
+  if (basePar > 1) console.log(`  (base puzzle already has ${basePar - 1} words_alpha-only alternate(s) — screening for "adds none")`);
+  const addsNothing = (decoys, d) => parCount([...decoys, d], basePar + 1) === basePar;
 
   console.log(`\nScreening 676 candidate decoys for ${p.id || p.theme} (existing decoys: [${p.decoys.join(', ')}])...`);
   const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -360,25 +365,18 @@ function suggestDecoys(p, count) {
     if (p.decoys.includes(d)) continue;
     const score = decoyScore(d, realFrags, affix);
     if (score === 0) continue; // implausible (Check C would warn)
-    if (!uniqueWith(paranoidDict, p.decoys, d)) continue;
+    if (!addsNothing(p.decoys, d)) continue;
     shortlist.push({ d, score, freq: freq.get(d) || 0 });
   }
   shortlist.sort((x, y) => y.score - x.score || y.freq - x.freq);
-  console.log(`  ${shortlist.length} individually paranoid-safe, plausible candidates.`);
+  console.log(`  ${shortlist.length} individually safe (add no new alternates), plausible candidates.`);
 
   const chosen = [];
   while (chosen.length < count) {
-    const next = shortlist.find(r => !chosen.includes(r.d) && uniqueWith(paranoidDict, [...p.decoys, ...chosen], r.d));
-    if (next) {
-      chosen.push(next.d);
-      console.log(`  picked ${next.d}   plausibility=${next.score}  bigram-freq=${next.freq}`);
-      continue;
-    }
-    // fall back to strict-only safety (words_alpha warnings possible)
-    const fallback = shortlist.find(r => !chosen.includes(r.d) && uniqueWith(strictDict, [...p.decoys, ...chosen], r.d));
-    if (!fallback) { console.log('  (no further jointly-safe candidates)'); break; }
-    chosen.push(fallback.d);
-    console.log(`  picked ${fallback.d}   plausibility=${fallback.score}  bigram-freq=${fallback.freq}  ⚠ strict-safe only — expect words_alpha warnings`);
+    const next = shortlist.find(r => !chosen.includes(r.d) && addsNothing([...p.decoys, ...chosen], r.d));
+    if (!next) { console.log('  (no further jointly-safe candidates)'); break; }
+    chosen.push(next.d);
+    console.log(`  picked ${next.d}   plausibility=${next.score}  bigram-freq=${next.freq}`);
   }
 
   console.log(`\n  suggested "decoys": ${JSON.stringify([...p.decoys, ...chosen])}`);

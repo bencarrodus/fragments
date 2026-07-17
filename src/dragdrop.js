@@ -23,7 +23,7 @@ export function initDragDrop({ gameRef, boardEl, bankEl, onChange }) {
     if (t.loc.type === 'slot') {         // tap a placed tile → back to bank
       clearSelection();
       game.toBank(tileId);
-      onChange();
+      onChange('remove');
       return;
     }
     if (selected === tileId) { clearSelection(); return; }
@@ -38,7 +38,7 @@ export function initDragDrop({ gameRef, boardEl, bankEl, onChange }) {
     const id = selected;
     clearSelection();
     game.place(id, row, idx);
-    onChange();
+    onChange('place');
   }
 
   function onPointerDown(e) {
@@ -103,9 +103,9 @@ export function initDragDrop({ gameRef, boardEl, bankEl, onChange }) {
       const game2 = gameRef();
       if (slotEl) {
         game2.place(tileId, +slotEl.dataset.row, +slotEl.dataset.idx);
-        onChange();
+        onChange('place');
       } else if (el?.closest('#bankwrap')) {
-        if (game2.tile(tileId).loc.type === 'slot') { game2.toBank(tileId); onChange(); }
+        if (game2.tile(tileId).loc.type === 'slot') { game2.toBank(tileId); onChange('remove'); }
       }
       // dropped elsewhere: model unchanged, tile snaps back visually
     }

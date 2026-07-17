@@ -1,0 +1,26 @@
+{
+  "id": "level-6",
+  "category": "Weather",
+  "theme": "FORECAST",
+  "words": [
+    "BREEZE",
+    "ICICLE",
+    "SQUALL",
+    "DELUGE",
+    "ZEPHYR",
+    "FLURRY"
+  ],
+  "decoys": [
+    "RI",
+    "IC",
+    "OS",
+    "UR"
+  ],
+  "seed": 106,
+  "validated": {
+    "tool": "validate.mjs@1",
+    "dict": "enable1 (172823) + words_alpha (370105)",
+    "at": "2026-07-17T21:33:09.614Z",
+    "hash": "3fb1f2e4d63c0f73"
+  }
+}
