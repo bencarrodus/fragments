@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Fragments — a daily word puzzle</title>
+  <meta name="description" content="Drag two-letter fragments to rebuild the hidden words — and discover what connects them.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>🧩</text></svg>">
+</head>
+<body>
+  <header id="topbar">
+    <div class="hdr-btns">
+      <button id="levelsBtn" class="iconbtn" type="button" title="Levels" aria-label="Choose level">☰</button>
+      <button id="clueBtn" class="iconbtn" type="button" title="Clue: reveal the top word" aria-label="Reveal the theme word">💡</button>
+      <button id="helpBtn" class="iconbtn" type="button" title="How to play" aria-label="How to play">?</button>
+    </div>
+    <h1>Fragments</h1>
+    <p class="tagline"><span id="levelTag"></span>Rebuild the words. The top row names what connects them.</p>
+  </header>
+
+  <main id="game" hidden>
+    <section id="board" aria-label="Puzzle board"></section>
+    <section id="bankwrap">
+      <div id="bank" aria-label="Fragment bank"></div>
+    </section>
+  </main>
+
+  <div id="toast" class="hidden" role="status"></div>
+
+  <div id="doneOverlay" class="overlay hidden">
+    <div class="card">
+      <h2>Solved!</h2>
+      <p id="doneCategory"></p>
+      <p id="doneStats"></p>
+      <button id="shareBtn" type="button">Copy result</button>
+      <button id="nextLevelBtn" type="button" class="hidden">Next level →</button>
+      <textarea id="shareFallback" class="hidden" readonly rows="2" aria-label="Share text"></textarea>
+      <button id="closeDoneBtn" type="button" class="ghostbtn">View board</button>
+    </div>
+  </div>
+
+  <div id="levelsOverlay" class="overlay hidden">
+    <div class="card">
+      <h2>Levels</h2>
+      <div id="levelList"></div>
+      <button id="closeLevelsBtn" type="button" class="ghostbtn">Close</button>
+    </div>
+  </div>
+
+  <div id="helpOverlay" class="overlay hidden">
+    <div class="card help-card">
+      <h2>How to play</h2>
+      <div class="help-text">
+        <p>Every row hides a word, and all the words share a secret connection. The <strong>top row</strong> hides the word that names that connection.</p>
+        <p><strong>Drag</strong> two-letter fragments from the bank into the empty slots — or <strong>tap</strong> a fragment, then tap a slot. Tap a placed fragment to send it back.</p>
+        <p>Nothing is checked until <em>every</em> slot is filled. If the full board isn't right, it shakes — but you won't be told which rows are wrong.</p>
+        <p>Some fragments are <strong>decoys</strong> that belong to no word. They'll still be in the bank when you win.</p>
+        <p>Stuck? The <strong>💡 clue</strong> button reveals the top word for you.</p>
+      </div>
+      <button id="closeHelpBtn" type="button">Got it</button>
+    </div>
+  </div>
+
+  <div id="loadError" class="overlay hidden">
+    <div class="card"><h2>No puzzle today</h2><p>Couldn't load a puzzle. Try again later.</p></div>
+  </div>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

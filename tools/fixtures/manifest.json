@@ -1,0 +1,44 @@
+[
+  {
+    "file": "clean-basic.json",
+    "expect": "pass",
+    "description": "clean puzzle passes; six same-length interchangeable words count as ONE canonical solution (canonicalization test)"
+  },
+  {
+    "file": "dup-crossmix.json",
+    "expect": "fail",
+    "mustReport": ["DEAD", "LEAL"],
+    "description": "fragments of DEAL+LEAD recombine into DEAD+LEAL — planted cross-mix duplicate must be rejected and named"
+  },
+  {
+    "file": "dup-decoy.json",
+    "expect": "fail",
+    "mustReport": ["TALE"],
+    "description": "decoy TA + real fragment LE completes TALE, an alternate to MALE — decoy-swap duplicate must be rejected"
+  },
+  {
+    "file": "dup-theme-anagram.json",
+    "expect": "fail",
+    "mustReport": ["ABLEST"],
+    "description": "theme-row fragments ST/AB/LE reorder into ABLEST — alternate theme word must be rejected"
+  },
+  {
+    "file": "theme-length-swap.json",
+    "expect": "fail",
+    "mustReport": ["shares its length"],
+    "description": "theme word COLORS shares length 6 with theme words — always swappable, must be rejected with targeted message"
+  },
+  {
+    "file": "structural-odd.json",
+    "expect": "fail",
+    "mustReport": ["odd length"],
+    "description": "odd-length word WEATHER cannot split into 2-letter fragments — structural rejection"
+  },
+  {
+    "file": "paranoid-warning.json",
+    "expect": "pass",
+    "expectWarning": true,
+    "mustReport": ["ALLE"],
+    "description": "ALLE (words_alpha junk, not ENABLE1) is an alternate to LEAL — passes strict but must surface a paranoid warning"
+  }
+]

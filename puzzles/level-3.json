@@ -1,0 +1,27 @@
+{
+  "id": "level-3",
+  "category": "Metals",
+  "theme": "METALS",
+  "words": [
+    "GOLD",
+    "IRON",
+    "ZINC",
+    "LEAD",
+    "TITANIUM",
+    "PLATINUM",
+    "TUNGSTEN"
+  ],
+  "decoys": [
+    "OT",
+    "OU",
+    "IR",
+    "IM"
+  ],
+  "seed": 103,
+  "validated": {
+    "tool": "validate.mjs@1",
+    "dict": "enable1 (172823) + words_alpha (370105)",
+    "at": "2026-07-17T17:31:41.044Z",
+    "hash": "b053785e5183fb73"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "level-4",
+  "category": "Colors",
+  "theme": "SPECTRUM",
+  "words": [
+    "PURPLE",
+    "ORANGE",
+    "SILVER",
+    "MAROON",
+    "YELLOW",
+    "INDIGO"
+  ],
+  "decoys": [
+    "RE",
+    "AC",
+    "GO",
+    "OL"
+  ],
+  "seed": 20260717,
+  "validated": {
+    "tool": "validate.mjs@1",
+    "dict": "enable1 (172823) + words_alpha (370105)",
+    "at": "2026-07-17T17:31:41.845Z",
+    "hash": "963dabf7ff630af8"
+  }
+}

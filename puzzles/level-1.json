@@ -1,0 +1,24 @@
+{
+  "id": "level-1",
+  "category": "Vegetables",
+  "theme": "VEGETABLES",
+  "words": [
+    "POTATO",
+    "CARROT",
+    "TURNIP",
+    "RADISH",
+    "CELERY",
+    "SQUASH"
+  ],
+  "decoys": [
+    "CO",
+    "DI"
+  ],
+  "seed": 101,
+  "validated": {
+    "tool": "validate.mjs@1",
+    "dict": "enable1 (172823) + words_alpha (370105)",
+    "at": "2026-07-17T17:31:39.718Z",
+    "hash": "2ef985b445f4d774"
+  }
+}
