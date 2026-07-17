@@ -1,9 +1,12 @@
 // Share text à la Wordle — no per-row history exists (the game only judges
 // full boards), so the result is attempts + time.
 
-export function shareText(levelNum, attempts, ms, clueUsed) {
+export function shareText(levelNum, attempts, ms, clueUsed, hintsUsed) {
   const tries = attempts === 1 ? '1 try' : `${attempts} tries`;
-  return `🧩 Fragments — Level ${levelNum}\nSolved in ${tries} · ${fmtTime(ms)}${clueUsed ? ' · 💡 clue used' : ''}`;
+  const bits = [`Solved in ${tries} · ${fmtTime(ms)}`];
+  if (clueUsed) bits.push('💡 clue used');
+  if (hintsUsed) bits.push(`🔎 ${hintsUsed} hint${hintsUsed > 1 ? 's' : ''}`);
+  return `🧩 Fragments — Level ${levelNum}\n${bits.join(' · ')}`;
 }
 
 export function fmtTime(ms) {

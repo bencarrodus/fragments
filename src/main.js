@@ -20,6 +20,8 @@ let attempts = 0;
 let startedAt = null;
 let finishedAt = null;
 let clueUsed = false;
+let hintsUsed = 0;
+let hintPicking = false; // true while waiting for the player to tap a box to reveal
 let countedSigs = new Set(); // full-board arrangements already counted as attempts
 
 async function fetchJson(url) {
@@ -31,7 +33,7 @@ async function fetchJson(url) {
 function persist() {
   saveProgress(game.puzzle.id, {
     placements: game.serialize(),
-    attempts, startedAt, finishedAt, clueUsed, solved: game.solved,
+    attempts, startedAt, finishedAt, clueUsed, hintsUsed, solved: game.solved,
   });
 }
 
@@ -74,7 +76,10 @@ function win() {
 function statsLine() {
   const tries = attempts === 1 ? '1 try' : `${attempts} tries`;
   const time = fmtTime((finishedAt ?? Date.now()) - (startedAt ?? Date.now()));
-  return `${tries} · ${time}${clueUsed ? ' · 💡 clue used' : ''}`;
+  const bits = [`${tries} · ${time}`];
+  if (clueUsed) bits.push('💡 clue used');
+  if (hintsUsed) bits.push(`🔎 ${hintsUsed} hint${hintsUsed > 1 ? 's' : ''}`);
+  return bits.join(' · ');
 }
 
 function showDone() {
@@ -100,9 +105,10 @@ function toast(msg) {
 async function loadLevel(id) {
   const puzzle = await fetchJson(`./puzzles/${id}.json`);
   if (!puzzle.validated) console.warn('Fragments: puzzle is NOT validator-stamped — do not ship this.');
+  exitHintPicking();
   game = createGame(puzzle);
   levelNum = levels.indexOf(id) + 1;
-  attempts = 0; startedAt = null; finishedAt = null; clueUsed = false;
+  attempts = 0; startedAt = null; finishedAt = null; clueUsed = false; hintsUsed = 0;
   countedSigs = new Set();
 
   const saved = loadProgress(id);
@@ -112,6 +118,7 @@ async function loadLevel(id) {
     startedAt = saved.startedAt ?? null;
     finishedAt = saved.finishedAt ?? null;
     clueUsed = !!saved.clueUsed;
+    hintsUsed = saved.hintsUsed || 0;
     game.solved = !!saved.solved;
   }
 
@@ -143,23 +150,60 @@ function renderLevelList() {
   });
 }
 
-// ---------- clue: reveal the theme word in the top row ----------
+// ---------- hints: reveal the correct fragment for a given board slot ----------
+//
+// The "correct" fragment for (row, idx) is read from the puzzle's own authored
+// word list (theme for row 0, puzzle.words[row-1] otherwise) — that's *a* valid
+// answer even though the any-match win rule would also accept a same-length
+// word swapped into that row. `exclude` lets a caller solving several slots in
+// one pass (the clue button) avoid reusing a tile it already placed or kept.
+function solveSlot(row, idx, exclude) {
+  const w = row === 0 ? game.puzzle.theme : game.puzzle.words[row - 1];
+  const txt = w.slice(idx * 2, idx * 2 + 2);
+  const cur = game.tileAt(row, idx);
+  if (cur && cur.text === txt) { exclude?.add(cur.id); return true; }
+  const cand =
+    game.tiles.find(t => t.text === txt && !exclude?.has(t.id) && t.loc.type === 'bank') ||
+    game.tiles.find(t => t.text === txt && !exclude?.has(t.id) &&
+      !(t.loc.type === 'slot' && t.loc.row === row && t.loc.idx === idx));
+  if (!cand) return false; // can't happen on a valid puzzle
+  game.place(cand.id, row, idx);
+  exclude?.add(cand.id);
+  return true;
+}
 
+// clue: reveal the whole theme word (top row) in one go
 function useClue() {
   if (!game || game.solved) return;
-  const frags = game.puzzle.theme.match(/../g);
+  exitHintPicking();
   const claimed = new Set();
-  frags.forEach((txt, i) => {
-    const cur = game.tileAt(0, i);
-    if (cur && cur.text === txt && !claimed.has(cur.id)) { claimed.add(cur.id); return; }
-    const cand =
-      game.tiles.find(t => t.text === txt && !claimed.has(t.id) && t.loc.type === 'bank') ||
-      game.tiles.find(t => t.text === txt && !claimed.has(t.id));
-    if (!cand) return; // can't happen on a valid puzzle
-    game.place(cand.id, 0, i);
-    claimed.add(cand.id);
-  });
+  const frags = game.puzzle.theme.match(/../g);
+  frags.forEach((_, i) => solveSlot(0, i, claimed));
   if (!clueUsed) { clueUsed = true; toast('Theme word revealed'); }
+  onChange();
+}
+
+// hint: player picks one empty box, that one box gets solved
+function enterHintPicking() {
+  if (!game || game.solved || hintPicking) return;
+  hintPicking = true;
+  boardEl.classList.add('hint-picking');
+  document.getElementById('hintBtn').classList.add('active');
+  toast('Tap an empty box to reveal it');
+}
+
+function exitHintPicking() {
+  hintPicking = false;
+  boardEl.classList.remove('hint-picking');
+  document.getElementById('hintBtn')?.classList.remove('active');
+}
+
+function useHintOnSlot(row, idx) {
+  if (!game || game.solved) return;
+  if (game.tileAt(row, idx)) { toast('Pick an empty box'); return; }
+  if (!solveSlot(row, idx)) return;
+  hintsUsed++;
+  exitHintPicking();
   onChange();
 }
 
@@ -178,7 +222,7 @@ async function boot() {
   initDragDrop({ gameRef: () => game, boardEl, bankEl, onChange });
 
   document.getElementById('shareBtn').addEventListener('click', async () => {
-    const text = shareText(levelNum, attempts, (finishedAt ?? Date.now()) - (startedAt ?? Date.now()), clueUsed);
+    const text = shareText(levelNum, attempts, (finishedAt ?? Date.now()) - (startedAt ?? Date.now()), clueUsed, hintsUsed);
     const ok = await copyToClipboard(text);
     if (ok) { toast('Result copied!'); return; }
     // clipboard unavailable — show the text for manual copy
@@ -196,6 +240,7 @@ async function boot() {
   });
 
   document.getElementById('levelsBtn').addEventListener('click', () => {
+    exitHintPicking();
     renderLevelList();
     levelsOverlay.classList.remove('hidden');
   });
@@ -203,9 +248,32 @@ async function boot() {
     levelsOverlay.classList.add('hidden'));
 
   document.getElementById('clueBtn').addEventListener('click', useClue);
+  document.getElementById('hintBtn').addEventListener('click', () => {
+    if (hintPicking) exitHintPicking();
+    else enterHintPicking();
+  });
 
-  document.getElementById('helpBtn').addEventListener('click', () =>
-    helpOverlay.classList.remove('hidden'));
+  // while picking, intercept board/bank taps before dragdrop's own handlers see them
+  boardEl.addEventListener('pointerdown', e => {
+    if (!hintPicking) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    const slotEl = e.target.closest('.slot');
+    if (!slotEl) return; // tapped empty space on the board — stay in picking mode
+    useHintOnSlot(+slotEl.dataset.row, +slotEl.dataset.idx);
+  }, { capture: true });
+  bankEl.addEventListener('pointerdown', e => {
+    if (!hintPicking) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    exitHintPicking();
+    toast('Hint cancelled');
+  }, { capture: true });
+
+  document.getElementById('helpBtn').addEventListener('click', () => {
+    exitHintPicking();
+    helpOverlay.classList.remove('hidden');
+  });
   document.getElementById('closeHelpBtn').addEventListener('click', () => {
     helpOverlay.classList.add('hidden');
     try { localStorage.setItem(HELP_SEEN_KEY, '1'); } catch { /* ignore */ }
