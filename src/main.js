@@ -152,13 +152,49 @@ function renderLevelList() {
 
 // ---------- hints: reveal the correct fragment for a given board slot ----------
 //
-// The "correct" fragment for (row, idx) is read from the puzzle's own authored
-// word list (theme for row 0, puzzle.words[row-1] otherwise) — that's *a* valid
-// answer even though the any-match win rule would also accept a same-length
-// word swapped into that row. `exclude` lets a caller solving several slots in
-// one pass (the clue button) avoid reusing a tile it already placed or kept.
+// Because same-length words are interchangeable between rows (any-match win
+// rule), a row's "correct" word isn't fixed — a player may have legitimately
+// started spelling a different same-length word than the one originally
+// authored for that row. bestWordForRow reads whatever fragments are already
+// placed and picks the intended word consistent with them, so a hint always
+// continues what the player already started instead of contradicting it.
+
+function rowStringIfFull(row) {
+  let s = '';
+  for (let i = 0; i < game.rows[row].slots; i++) {
+    const t = game.tileAt(row, i);
+    if (!t) return null;
+    s += t.text;
+  }
+  return s;
+}
+
+function bestWordForRow(row) {
+  if (row === 0) return game.puzzle.theme;
+  const wordLen = game.rows[row].slots * 2;
+  const usedElsewhere = new Set();
+  game.rows.forEach((_, ri) => {
+    if (ri === row || ri === 0) return;
+    const s = rowStringIfFull(ri);
+    if (s) usedElsewhere.add(s);
+  });
+  const candidates = game.puzzle.words.filter(w => w.length === wordLen && !usedElsewhere.has(w));
+  const consistent = candidates.filter(w => {
+    for (let i = 0; i < w.length / 2; i++) {
+      const cur = game.tileAt(row, i);
+      if (cur && cur.text !== w.slice(i * 2, i * 2 + 2)) return false;
+    }
+    return true;
+  });
+  if (!consistent.length) return game.puzzle.words[row - 1]; // shouldn't happen on a valid puzzle
+  const authored = game.puzzle.words[row - 1];
+  return consistent.includes(authored) ? authored : consistent[0];
+}
+
+// `exclude` lets a caller solving several slots in one pass (the clue button)
+// avoid reusing a tile it already placed or kept.
 function solveSlot(row, idx, exclude) {
-  const w = row === 0 ? game.puzzle.theme : game.puzzle.words[row - 1];
+  const w = bestWordForRow(row);
   const txt = w.slice(idx * 2, idx * 2 + 2);
   const cur = game.tileAt(row, idx);
   if (cur && cur.text === txt) { exclude?.add(cur.id); return true; }
