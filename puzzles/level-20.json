@@ -1,0 +1,26 @@
+{
+  "id": "level-20",
+  "category": "Gemstones",
+  "theme": "TREASURE",
+  "words": [
+    "OPAL",
+    "JADE",
+    "RUBY",
+    "ONYX",
+    "GARNET",
+    "ZIRCON"
+  ],
+  "decoys": [
+    "ND",
+    "OS",
+    "ID",
+    "CT"
+  ],
+  "seed": 108,
+  "validated": {
+    "tool": "validate.mjs@1",
+    "dict": "enable1 (172823) + words_alpha (370105)",
+    "at": "2026-07-17T21:33:11.146Z",
+    "hash": "d3ddc352b7ead314"
+  }
+}

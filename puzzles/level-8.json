@@ -1,26 +1,27 @@
 {
   "id": "level-8",
-  "category": "Gemstones",
-  "theme": "TREASURE",
+  "category": "Birds",
+  "theme": "FEATHERS",
   "words": [
-    "OPAL",
-    "JADE",
-    "RUBY",
-    "ONYX",
-    "GARNET",
-    "ZIRCON"
+    "CROW",
+    "DOVE",
+    "HAWK",
+    "FALCON",
+    "MAGPIE",
+    "PARROT"
   ],
   "decoys": [
-    "ND",
     "OS",
-    "ID",
-    "CT"
+    "OT",
+    "EI",
+    "FE",
+    "OO"
   ],
-  "seed": 108,
+  "seed": 109,
   "validated": {
     "tool": "validate.mjs@1",
     "dict": "enable1 (172823) + words_alpha (370105)",
-    "at": "2026-07-17T21:33:11.146Z",
-    "hash": "d3ddc352b7ead314"
+    "at": "2026-07-17T21:33:11.851Z",
+    "hash": "8f4d70b3b00e76b9"
   }
 }

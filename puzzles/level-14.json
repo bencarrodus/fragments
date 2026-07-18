@@ -1,0 +1,26 @@
+{
+  "id": "level-14",
+  "category": "Countries",
+  "theme": "PASSPORT",
+  "words": [
+    "PERU",
+    "CUBA",
+    "FIJI",
+    "FRANCE",
+    "BRAZIL",
+    "NORWAY"
+  ],
+  "decoys": [
+    "EA",
+    "CI",
+    "TL",
+    "RG"
+  ],
+  "seed": 214,
+  "validated": {
+    "tool": "validate.mjs@1",
+    "dict": "enable1 (172823) + words_alpha (370105)",
+    "at": "2026-07-18T09:24:59.301Z",
+    "hash": "b03a3a0ef0db1919"
+  }
+}

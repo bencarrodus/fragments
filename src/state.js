@@ -1,5 +1,7 @@
 // Per-puzzle progress persistence.
-const KEY = 'fragmentsProgress_v1';
+// v2: the great level renumbering of 2026-07 reassigned which puzzle each
+// level-N id refers to, so v1 saves would restore tiles onto the wrong boards.
+const KEY = 'fragmentsProgress_v2';
 
 function readAll() {
   try { return JSON.parse(localStorage.getItem(KEY)) || {}; }

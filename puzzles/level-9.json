@@ -1,27 +1,25 @@
 {
   "id": "level-9",
-  "category": "Birds",
-  "theme": "FEATHERS",
+  "category": "Desserts",
+  "theme": "DESSERTS",
   "words": [
-    "CROW",
-    "DOVE",
-    "HAWK",
-    "FALCON",
-    "MAGPIE",
-    "PARROT"
+    "CAKE",
+    "TRIFLE",
+    "MOUSSE",
+    "SUNDAE",
+    "SORBET",
+    "ECLAIR"
   ],
   "decoys": [
-    "OS",
-    "OT",
-    "EI",
-    "FE",
-    "OO"
+    "KE",
+    "OM",
+    "OI"
   ],
-  "seed": 109,
+  "seed": 209,
   "validated": {
     "tool": "validate.mjs@1",
     "dict": "enable1 (172823) + words_alpha (370105)",
-    "at": "2026-07-17T21:33:11.851Z",
-    "hash": "8f4d70b3b00e76b9"
+    "at": "2026-07-18T09:24:57.296Z",
+    "hash": "f4896adb1626c120"
   }
 }

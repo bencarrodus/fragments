@@ -1,26 +1,25 @@
 {
   "id": "level-6",
-  "category": "Weather",
-  "theme": "FORECAST",
+  "category": "Drinks",
+  "theme": "DRINKS",
   "words": [
-    "BREEZE",
-    "ICICLE",
-    "SQUALL",
-    "DELUGE",
-    "ZEPHYR",
-    "FLURRY"
+    "COLA",
+    "MILK",
+    "MEAD",
+    "LEMONADE",
+    "SMOOTHIE",
+    "ESPRESSO"
   ],
   "decoys": [
-    "RI",
-    "IC",
-    "OS",
-    "UR"
+    "PH",
+    "EA",
+    "RG"
   ],
-  "seed": 106,
+  "seed": 206,
   "validated": {
     "tool": "validate.mjs@1",
     "dict": "enable1 (172823) + words_alpha (370105)",
-    "at": "2026-07-17T21:33:09.614Z",
-    "hash": "3fb1f2e4d63c0f73"
+    "at": "2026-07-18T09:24:56.006Z",
+    "hash": "83f24f537008e271"
   }
 }

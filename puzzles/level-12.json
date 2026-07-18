@@ -1,0 +1,26 @@
+{
+  "id": "level-12",
+  "category": "Fruit",
+  "theme": "FRUITS",
+  "words": [
+    "PEAR",
+    "PLUM",
+    "LIME",
+    "KIWI",
+    "HONEYDEW",
+    "MULBERRY"
+  ],
+  "decoys": [
+    "IC",
+    "EC",
+    "EO",
+    "DY"
+  ],
+  "seed": 212,
+  "validated": {
+    "tool": "validate.mjs@1",
+    "dict": "enable1 (172823) + words_alpha (370105)",
+    "at": "2026-07-18T09:24:58.635Z",
+    "hash": "06539db3122daf8e"
+  }
+}

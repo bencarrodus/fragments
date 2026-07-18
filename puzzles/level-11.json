@@ -1,0 +1,26 @@
+{
+  "id": "level-11",
+  "category": "Zoo animals",
+  "theme": "SAFARI",
+  "words": [
+    "LION",
+    "BEAR",
+    "PUMA",
+    "ELEPHANT",
+    "KANGAROO",
+    "FLAMINGO"
+  ],
+  "decoys": [
+    "IE",
+    "WI",
+    "HS",
+    "OI"
+  ],
+  "seed": 211,
+  "validated": {
+    "tool": "validate.mjs@1",
+    "dict": "enable1 (172823) + words_alpha (370105)",
+    "at": "2026-07-18T09:24:57.940Z",
+    "hash": "0bda1fcd4c2006da"
+  }
+}

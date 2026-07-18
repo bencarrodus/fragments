@@ -1,26 +1,25 @@
 {
   "id": "level-7",
-  "category": "Musical instruments",
-  "theme": "SYMPHONY",
+  "category": "Space",
+  "theme": "UNIVERSE",
   "words": [
-    "OBOE",
-    "TUBA",
-    "DRUM",
-    "GUITAR",
-    "VIOLIN",
-    "CORNET"
+    "MOON",
+    "NOVA",
+    "METEOR",
+    "PULSAR",
+    "SATURN",
+    "PLANET"
   ],
   "decoys": [
-    "UR",
-    "AE",
-    "OC",
-    "HI"
+    "TY",
+    "PL",
+    "YT"
   ],
-  "seed": 107,
+  "seed": 207,
   "validated": {
     "tool": "validate.mjs@1",
     "dict": "enable1 (172823) + words_alpha (370105)",
-    "at": "2026-07-17T21:33:10.347Z",
-    "hash": "061d4bf65f931d82"
+    "at": "2026-07-18T09:24:56.654Z",
+    "hash": "dd7454b826ba771f"
   }
 }

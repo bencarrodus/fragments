@@ -1,0 +1,26 @@
+{
+  "id": "level-13",
+  "category": "Musical instruments",
+  "theme": "SYMPHONY",
+  "words": [
+    "OBOE",
+    "TUBA",
+    "DRUM",
+    "GUITAR",
+    "VIOLIN",
+    "CORNET"
+  ],
+  "decoys": [
+    "UR",
+    "AE",
+    "OC",
+    "HI"
+  ],
+  "seed": 107,
+  "validated": {
+    "tool": "validate.mjs@1",
+    "dict": "enable1 (172823) + words_alpha (370105)",
+    "at": "2026-07-17T21:33:10.347Z",
+    "hash": "061d4bf65f931d82"
+  }
+}

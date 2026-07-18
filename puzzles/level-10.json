@@ -1,27 +1,27 @@
 {
   "id": "level-10",
-  "category": "Trees",
-  "theme": "CANOPY",
+  "category": "Metals",
+  "theme": "METALS",
   "words": [
-    "PINE",
-    "PALM",
-    "TEAK",
-    "CHESTNUT",
-    "SYCAMORE",
-    "HAWTHORN"
+    "GOLD",
+    "IRON",
+    "ZINC",
+    "LEAD",
+    "TITANIUM",
+    "PLATINUM",
+    "TUNGSTEN"
   ],
   "decoys": [
-    "OR",
     "OT",
-    "NU",
     "OU",
-    "UC"
+    "IR",
+    "IM"
   ],
-  "seed": 110,
+  "seed": 103,
   "validated": {
     "tool": "validate.mjs@1",
     "dict": "enable1 (172823) + words_alpha (370105)",
-    "at": "2026-07-17T21:33:12.466Z",
-    "hash": "6abffb34218ab12e"
+    "at": "2026-07-17T17:31:41.044Z",
+    "hash": "b053785e5183fb73"
   }
 }

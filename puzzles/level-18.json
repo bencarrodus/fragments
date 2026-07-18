@@ -1,0 +1,27 @@
+{
+  "id": "level-18",
+  "category": "Maths terms",
+  "theme": "EQUATION",
+  "words": [
+    "ZERO",
+    "AXIS",
+    "SINE",
+    "VERTEX",
+    "RADIUS",
+    "FACTOR"
+  ],
+  "decoys": [
+    "IE",
+    "EI",
+    "BL",
+    "IM",
+    "RN"
+  ],
+  "seed": 218,
+  "validated": {
+    "tool": "validate.mjs@1",
+    "dict": "enable1 (172823) + words_alpha (370105)",
+    "at": "2026-07-18T09:25:00.618Z",
+    "hash": "9169055b8b136d1f"
+  }
+}

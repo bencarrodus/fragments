@@ -1,25 +1,24 @@
 {
   "id": "level-2",
-  "category": "Sports",
-  "theme": "SPORTS",
+  "category": "Shapes",
+  "theme": "GEOMETRY",
   "words": [
-    "GOLF",
-    "POLO",
-    "JUDO",
-    "FOOTBALL",
-    "BASEBALL",
-    "LACROSSE"
+    "OVAL",
+    "CUBE",
+    "CIRCLE",
+    "SQUARE",
+    "OBLONG",
+    "SPIRAL"
   ],
   "decoys": [
-    "EC",
-    "MU",
-    "YE"
+    "PH",
+    "NC"
   ],
-  "seed": 102,
+  "seed": 202,
   "validated": {
     "tool": "validate.mjs@1",
     "dict": "enable1 (172823) + words_alpha (370105)",
-    "at": "2026-07-17T17:31:40.363Z",
-    "hash": "b64ef4fcd5760180"
+    "at": "2026-07-18T09:24:54.643Z",
+    "hash": "3f8b8dec1d12d8ff"
   }
 }

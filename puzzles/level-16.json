@@ -1,0 +1,26 @@
+{
+  "id": "level-16",
+  "category": "Capital cities",
+  "theme": "CAPITALS",
+  "words": [
+    "LONDON",
+    "ATHENS",
+    "VIENNA",
+    "WARSAW",
+    "MOSCOW",
+    "LISBON"
+  ],
+  "decoys": [
+    "AR",
+    "BI",
+    "IR",
+    "AT"
+  ],
+  "seed": 216,
+  "validated": {
+    "tool": "validate.mjs@1",
+    "dict": "enable1 (172823) + words_alpha (370105)",
+    "at": "2026-07-18T09:24:59.978Z",
+    "hash": "e1254eb84963ceb1"
+  }
+}

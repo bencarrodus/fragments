@@ -1,27 +1,25 @@
 {
   "id": "level-3",
-  "category": "Metals",
-  "theme": "METALS",
+  "category": "Clothing",
+  "theme": "CLOTHING",
   "words": [
-    "GOLD",
-    "IRON",
-    "ZINC",
-    "LEAD",
-    "TITANIUM",
-    "PLATINUM",
-    "TUNGSTEN"
+    "VEST",
+    "BELT",
+    "JACKET",
+    "MITTEN",
+    "BLAZER",
+    "BLOUSE"
   ],
   "decoys": [
-    "OT",
-    "OU",
-    "IR",
-    "IM"
+    "OO",
+    "VE",
+    "OM"
   ],
-  "seed": 103,
+  "seed": 105,
   "validated": {
     "tool": "validate.mjs@1",
     "dict": "enable1 (172823) + words_alpha (370105)",
-    "at": "2026-07-17T17:31:41.044Z",
-    "hash": "b053785e5183fb73"
+    "at": "2026-07-17T21:33:08.862Z",
+    "hash": "aa43313a49450adb"
   }
 }

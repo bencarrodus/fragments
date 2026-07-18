@@ -1,26 +1,24 @@
 {
   "id": "level-4",
-  "category": "Colors",
-  "theme": "SPECTRUM",
+  "category": "Farm animals",
+  "theme": "FARMYARD",
   "words": [
-    "PURPLE",
-    "ORANGE",
-    "SILVER",
-    "MAROON",
-    "YELLOW",
-    "INDIGO"
+    "GOAT",
+    "DUCK",
+    "PONY",
+    "DONKEY",
+    "TURKEY",
+    "CATTLE"
   ],
   "decoys": [
-    "RE",
-    "AC",
-    "GO",
-    "OL"
+    "AT",
+    "RM"
   ],
-  "seed": 20260717,
+  "seed": 204,
   "validated": {
     "tool": "validate.mjs@1",
     "dict": "enable1 (172823) + words_alpha (370105)",
-    "at": "2026-07-17T17:31:41.845Z",
-    "hash": "963dabf7ff630af8"
+    "at": "2026-07-18T09:24:55.298Z",
+    "hash": "3b367c3eeacec9b2"
   }
 }

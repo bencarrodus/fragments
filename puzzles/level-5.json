@@ -1,25 +1,25 @@
 {
   "id": "level-5",
-  "category": "Clothing",
-  "theme": "CLOTHING",
+  "category": "Sports",
+  "theme": "SPORTS",
   "words": [
-    "VEST",
-    "BELT",
-    "JACKET",
-    "MITTEN",
-    "BLAZER",
-    "BLOUSE"
+    "GOLF",
+    "POLO",
+    "JUDO",
+    "FOOTBALL",
+    "BASEBALL",
+    "LACROSSE"
   ],
   "decoys": [
-    "OO",
-    "VE",
-    "OM"
+    "EC",
+    "MU",
+    "YE"
   ],
-  "seed": 105,
+  "seed": 102,
   "validated": {
     "tool": "validate.mjs@1",
     "dict": "enable1 (172823) + words_alpha (370105)",
-    "at": "2026-07-17T21:33:08.862Z",
-    "hash": "aa43313a49450adb"
+    "at": "2026-07-17T17:31:40.363Z",
+    "hash": "b64ef4fcd5760180"
   }
 }
